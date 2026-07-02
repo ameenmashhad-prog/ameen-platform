@@ -96,11 +96,11 @@
 
   function routeFor(profile) {
     if (!profile) return 'index.html';
-    if (profile.is_super_admin || profile.role === 'admin') return 'super-admin.html';
-    if (profile.role === 'parent') return 'parent.html';
-    if (profile.role === 'teacher') return 'teacher.html';
-    if (profile.role === 'student') return 'student.html';
-    if (['counselor', 'psychologist'].includes(profile.role)) return 'counselor.html';
+    if (profile.is_super_admin || profile.role === 'admin') return 'pages/super-admin.html';
+    if (profile.role === 'parent') return 'pages/parent.html';
+    if (profile.role === 'teacher') return 'pages/teacher.html';
+    if (profile.role === 'student') return 'pages/student.html';
+    if (['counselor', 'psychologist'].includes(profile.role)) return 'pages/counselor.html';
     return 'portal.html';
   }
 
