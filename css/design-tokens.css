@@ -1,0 +1,235 @@
+/* ───────────────────────────────────────────────────────────
+   Amin Tactile Design Tokens — مدارس أمين الرضا (ع)
+   الهوية البصرية الموحدة: أخضر زمردي + ذهبي نحاسي + كحلي نيلي
+   لا CDN — كل الموارد محلية
+   ─────────────────────────────────────────────────────────── */
+
+:root {
+  /* Primary — أخضر زمردي عميق */
+  --primary: #0B6E4F;
+  --primary-50: #E6F4EF;
+  --primary-100: #CCE9E0;
+  --primary-200: #99D3C1;
+  --primary-300: #66BDA2;
+  --primary-400: #33A783;
+  --primary-500: #0B6E4F;
+  --primary-600: #095840;
+  --primary-700: #074230;
+  --primary-800: #052C20;
+  --primary-900: #031610;
+
+  /* Secondary — ذهبي/نحاسي دافئ (محدود الاستخدام) */
+  --secondary: #B8860B;
+  --secondary-50: #FBF1DC;
+  --secondary-100: #F5E3B9;
+  --secondary-200: #EAC773;
+  --secondary-300: #DFAB2D;
+  --secondary-400: #C9961B;
+  --secondary-500: #B8860B;
+  --secondary-600: #936B09;
+  --secondary-700: #6E5007;
+  --secondary-800: #4A3505;
+  --secondary-900: #251B02;
+
+  /* Accent — كحلي نيلي عميق */
+  --accent: #3A3565;
+  --accent-50: #EBEAF4;
+  --accent-100: #D7D5E9;
+  --accent-200: #AFABD3;
+  --accent-300: #8781BD;
+  --accent-400: #5F57A7;
+  --accent-500: #3A3565;
+  --accent-600: #2E2A51;
+  --accent-700: #23203D;
+  --accent-800: #17152A;
+  --accent-900: #0C0B15;
+
+  /* Light mode */
+  --bg: #F7F5F0;
+  --surface: #FFFFFF;
+  --surface-2: #F4F6FB;
+  --surface-3: #EEF1F6;
+  --border-subtle: #E5E8F0;
+  --border-strong: #C9CFDC;
+  --text-primary: #1E2433;
+  --text-secondary: #6B7280;
+  --text-muted: #9CA3AF;
+
+  --success: #16A34A;
+  --success-50: #F0FDF4;
+  --success-100: #DCFCE7;
+  --success-200: #BBF7D0;
+  --warning: #D97706;
+  --warning-50: #FFFBEB;
+  --warning-100: #FEF3C7;
+  --warning-200: #FDE68A;
+  --danger: #DC2626;
+  --danger-50: #FEF2F2;
+  --danger-100: #FEE2E2;
+  --danger-200: #FECACA;
+  --info: #3A3565;
+
+  /* Tactile shadows — ملونة حسب العنصر، لا رمادية محايدة */
+  --shadow-primary: 0 8px 20px rgba(11, 110, 79, 0.25);
+  --shadow-secondary: 0 8px 20px rgba(184, 134, 11, 0.25);
+  --shadow-accent: 0 8px 20px rgba(58, 53, 101, 0.25);
+  --shadow-soft: 0 4px 12px rgba(30, 36, 51, 0.08);
+  --shadow-lift: 0 12px 28px rgba(30, 36, 51, 0.12);
+
+  /* Typography */
+  --font-ar: "IBM Plex Sans Arabic", "Noto Sans Arabic", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-fa: "Vazirmatn", "Noto Sans Arabic", system-ui, sans-serif;
+  --font-en: "Inter", "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-base: var(--font-ar);
+  --font-mono: "SF Mono", "Courier New", monospace;
+
+  --text-xs: clamp(0.625rem, 1.5vw, 0.75rem);
+  --text-sm: clamp(0.75rem, 1.6vw, 0.875rem);
+  --text-base: clamp(0.875rem, 1.7vw, 1rem);
+  --text-lg: clamp(1rem, 2vw, 1.125rem);
+  --text-xl: clamp(1.125rem, 2.5vw, 1.25rem);
+  --text-2xl: clamp(1.25rem, 3vw, 1.5rem);
+  --text-3xl: clamp(1.5rem, 4vw, 2rem);
+  --text-4xl: clamp(1.75rem, 5vw, 2.5rem);
+  --text-5xl: clamp(2rem, 6vw, 3rem);
+  --text-hero: clamp(2.25rem, 7vw, 3.5rem);
+
+  /* Spacing scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Layout */
+  --sidebar-width: 260px;
+  --sidebar-collapsed: 72px;
+  --header-height: 64px;
+  --bottom-nav-height: 64px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 9999px;
+
+  /* Motion — بطيء وطبيعي */
+  --transition-fast: 150ms cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-standard: 350ms cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-slow: 500ms cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Breakpoints (للتعليقات والمرجع) */
+  --bp-mobile: 0px;
+  --bp-tablet: 640px;
+  --bp-desktop: 1024px;
+  --bp-wide: 1440px;
+
+  /* Touch target */
+  --touch-min: 44px;
+}
+
+/* Dark mode */
+[data-theme="dark"] {
+  --bg: #14181A;
+  --surface: #1C2236;
+  --surface-2: #242B42;
+  --surface-3: #2A324A;
+  --border-subtle: #2E3450;
+  --border-strong: #3E4666;
+  --text-primary: #E8EAF2;
+  --text-secondary: #9CA3AF;
+  --text-muted: #6B7280;
+
+  --success: #4ADE80;
+  --warning: #FBBF24;
+  --danger: #F87171;
+  --info: #A5B4FC;
+
+  --shadow-primary: 0 8px 20px rgba(31, 174, 124, 0.25);
+  --shadow-secondary: 0 8px 20px rgba(251, 191, 36, 0.15);
+  --shadow-accent: 0 8px 20px rgba(120, 113, 190, 0.25);
+  --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.25);
+  --shadow-lift: 0 12px 28px rgba(0, 0, 0, 0.35);
+}
+
+/* RTL/LTR logical — ظلال ثابتة لا تُعكس */
+[dir="rtl"],
+[dir="ltr"] {
+  --shadow-light: -6px -6px 14px var(--shadow-highlight, rgba(255, 255, 255, 0.08));
+  --shadow-dark: 6px 6px 14px var(--shadow-depth, rgba(0, 0, 0, 0.15));
+}
+
+/* Base reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-base);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: var(--text-primary);
+  background-color: var(--bg);
+  transition: background-color var(--transition-standard), color var(--transition-standard);
+}
+
+/* Responsive type scale */
+h1, h2, h3, h4, h5, h6, p { margin: 0; }
+
+h1 { font-size: var(--text-hero); font-weight: 800; line-height: 1.15; }
+h2 { font-size: var(--text-5xl); font-weight: 700; line-height: 1.2; }
+h3 { font-size: var(--text-4xl); font-weight: 700; line-height: 1.25; }
+h4 { font-size: var(--text-3xl); font-weight: 600; line-height: 1.3; }
+h5 { font-size: var(--text-2xl); font-weight: 600; line-height: 1.35; }
+h6 { font-size: var(--text-xl); font-weight: 600; line-height: 1.4; }
+
+/* Typography hero animation */
+.animate-title {
+  animation: title-enter 400ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+@keyframes title-enter {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Slow spinning star */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Star pulse watermark */
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.03; transform: scale(1); }
+  50% { opacity: 0.05; transform: scale(1.02); }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus ring */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}

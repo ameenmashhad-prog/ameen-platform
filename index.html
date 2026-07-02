@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0B6E4F">
+  <title>مجمع أمين الرضا التعليمي — تسجيل الدخول</title>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="css/design-tokens.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .amin-login-body { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: var(--space-4); }
+    .amin-login-card { background: var(--surface); border-radius: var(--radius-xl); box-shadow: var(--shadow-lift); padding: var(--space-8); width: 100%; max-width: 440px; border: 1px solid var(--border-subtle); position: relative; overflow: hidden; }
+    .amin-login-brand { text-align: center; margin-bottom: var(--space-6); }
+    .amin-login-logo { width: 72px; height: 72px; margin: 0 auto var(--space-4); color: var(--primary); }
+    .amin-login-title { font-size: var(--text-2xl); font-weight: 800; color: var(--text-primary); margin-bottom: var(--space-2); }
+    .amin-login-subtitle { color: var(--text-secondary); font-size: var(--text-sm); }
+    .amin-login-form { display: flex; flex-direction: column; gap: var(--space-4); }
+    .amin-input-wrap { position: relative; display: flex; align-items: center; }
+    .amin-pass-toggle { position: absolute; inset-inline-end: var(--space-3); background: transparent; border: none; color: var(--text-secondary); cursor: pointer; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; }
+    .amin-login-row { display: flex; justify-content: space-between; align-items: center; font-size: var(--text-sm); color: var(--text-secondary); }
+    .amin-check { display: flex; align-items: center; gap: var(--space-2); cursor: pointer; }
+    .amin-forgot { color: var(--primary); text-decoration: none; }
+    .amin-forgot:hover { text-decoration: underline; }
+    .amin-attempts { background: var(--danger-tint); color: var(--danger); padding: var(--space-3); border-radius: var(--radius-md); font-size: var(--text-sm); display: none; }
+    .amin-attempts.show { display: block; }
+    .amin-login-secondary { display: flex; justify-content: center; gap: var(--space-3); margin-top: var(--space-5); font-size: var(--text-sm); color: var(--text-secondary); }
+    .amin-login-secondary a { color: var(--primary); text-decoration: none; }
+    .amin-login-footer { margin-top: var(--space-6); text-align: center; font-size: var(--text-xs); color: var(--text-muted); }
+    .amin-login-footer a { color: var(--primary); }
+    .amin-star-watermark { position: absolute; opacity: 0.03; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
+  </style>
+</head>
+<body class="amin-login-body">
+
+<main class="amin-login-card" aria-labelledby="loginTitle">
+  <div class="amin-star-watermark" id="loginWatermark"></div>
+
+  <header class="amin-login-brand">
+    <div class="amin-login-logo" id="loginLogo" aria-hidden="true"></div>
+    <h1 class="amin-login-title" id="loginTitle">مجمع أمين الرضا التعليمي</h1>
+    <p class="amin-login-subtitle">دخول موحّد وآمن — تظهر بعد الدخول الواجهات المفوضة لك فقط</p>
+  </header>
+
+  <form class="amin-login-form" id="loginForm" novalidate>
+    <div class="amin-field" data-field="username">
+      <label class="amin-label" for="username">اسم المستخدم أو البريد الإلكتروني</label>
+      <input id="username" class="amin-input" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="اسم المستخدم أو البريد الإلكتروني" aria-describedby="usernameError">
+      <div class="amin-field-error" id="usernameError" role="alert" style="color:var(--danger);font-size:var(--text-sm);margin-top:var(--space-1);"></div>
+    </div>
+
+    <div class="amin-field" data-field="password">
+      <label class="amin-label" for="password">كلمة المرور</label>
+      <div class="amin-input-wrap">
+        <input id="password" class="amin-input" type="password" autocomplete="current-password" placeholder="كلمة المرور" aria-describedby="passwordError">
+        <button class="amin-pass-toggle" id="togglePassword" type="button" aria-label="إظهار كلمة المرور">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+      <div class="amin-field-error" id="passwordError" role="alert" style="color:var(--danger);font-size:var(--text-sm);margin-top:var(--space-1);"></div>
+    </div>
+
+    <div class="amin-login-row">
+      <label class="amin-check"><input id="rememberMe" type="checkbox" checked> <span>تذكرني</span></label>
+      <a class="amin-forgot" href="#" id="forgotPassword">نسيت كلمة المرور؟</a>
+    </div>
+
+    <div class="amin-attempts" id="attemptsBox" role="alert"></div>
+
+    <button id="loginBtn" class="amin-btn amin-btn-primary" type="submit" style="width:100%;">
+      <span class="btn-label">دخول إلى النظام</span>
+    </button>
+  </form>
+
+  <nav class="amin-login-secondary" aria-label="روابط التسجيل">
+    <a href="family-registration.html">تسجيل ولي أمر/طالب</a>
+    <span aria-hidden="true">•</span>
+    <a href="teacher-registration.html">تسجيل معلم</a>
+  </nav>
+
+  <footer class="amin-login-footer">
+    <div id="sessionHint">لا توجد فئة مستخدم في الواجهة؛ الصلاحيات تُقرأ من قاعدة البيانات بعد الدخول.</div>
+    <div>© 2026 مجمع أمين الرضا التعليمي</div>
+  </footer>
+</main>
+
+<script src="libs/supabase.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/signature-star.js"></script>
+<script src="js/core.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Star logo and watermark
+    const logo = document.getElementById('loginLogo');
+    if (logo && window.AminStar) logo.appendChild(AminStar.logo({ size: 72, color: 'var(--primary)' }));
+    const wm = document.getElementById('loginWatermark');
+    if (wm && window.AminStar) wm.appendChild(AminStar.watermark({ size: 260, opacity: 0.03 }));
+
+    // Init login
+    if (window.AminPortal) AminPortal.bootLogin();
+  });
+</script>
+</body>
+</html>

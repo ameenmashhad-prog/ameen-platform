@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>بدون اتصال — أمين الرضا</title>
+  <link rel="stylesheet" href="css/design-tokens.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    body { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: var(--space-4); text-align: center; }
+    .offline-card { max-width: 420px; padding: var(--space-8); }
+    .offline-icon { width: 96px; height: 96px; margin: 0 auto var(--space-4); color: var(--primary); }
+  </style>
+</head>
+<body>
+  <main class="amin-card offline-card">
+    <div class="offline-icon" id="offlineIcon"></div>
+    <h1 class="h2">لا يوجد اتصال بالإنترنت</h1>
+    <p class="amin-text-secondary" style="margin-bottom:var(--space-5);">تحقق من اتصالك وحاول مرة أخرى. بعض الصفحات الأساسية متاحة بدون إنترنت.</p>
+    <button class="amin-btn amin-btn-primary" onclick="location.reload()">إعادة المحاولة</button>
+  </main>
+  <script src="js/signature-star.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const el = document.getElementById('offlineIcon');
+      if (el && window.AminStar) el.appendChild(AminStar.watermark({ size: 96, opacity: 0.15 }));
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>معاينة نظام التصميم — مدارس أمين الرضا</title>
+  <link rel="stylesheet" href="css/design-tokens.css">
+  <link rel="stylesheet" href="css/components.css">
+  <script src="js/signature-star.js" defer></script>
+  <script src="js/renderHelpers.js" defer></script>
+  <style>
+    .preview-stage { display: grid; gap: 24px; padding: 24px; }
+    .preview-frame { border: 2px solid var(--border-strong); border-radius: var(--radius-lg); overflow: hidden; background: var(--surface); }
+    .preview-frame.desktop { width: 100%; max-width: 1280px; }
+    .preview-frame.tablet { width: 768px; }
+    .preview-frame.mobile { width: 375px; }
+    .preview-header { padding: 12px 16px; background: var(--surface-2); border-bottom: 1px solid var(--border-subtle); font-weight: 600; }
+    .preview-body { padding: 16px; }
+    .preview-section-title { font-size: var(--text-xl); font-weight: 700; margin-bottom: 12px; color: var(--text-primary); }
+    .preview-row { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 16px; align-items: center; }
+    .preview-label { font-size: var(--text-xs); color: var(--text-muted); }
+    .preview-frames { display: flex; gap: 24px; overflow-x: auto; padding-bottom: 24px; }
+  </style>
+</head>
+<body>
+  <div class="amin-container">
+    <h1 class="animate-title" style="margin: 24px 0;">معاينة نظام التصميم — مدارس أمين الرضا</h1>
+
+    <div class="preview-row" style="margin-bottom:24px;">
+      <button class="amin-btn amin-btn-primary" onclick="toggleTheme()">تبديل الوضع</button>
+      <button class="amin-btn amin-btn-ghost" onclick="toggleLang()">تبديل اللغة</button>
+      <span id="clock" class="preview-label"></span>
+    </div>
+
+    <div class="preview-frames">
+      <!-- Desktop -->
+      <div class="preview-frame desktop">
+        <div class="preview-header">Desktop (1024px+)</div>
+        <div class="preview-body" id="desktop-preview"></div>
+      </div>
+      <!-- Tablet -->
+      <div class="preview-frame tablet">
+        <div class="preview-header">Tablet (640px)</div>
+        <div class="preview-body" id="tablet-preview"></div>
+      </div>
+      <!-- Mobile -->
+      <div class="preview-frame mobile">
+        <div class="preview-header">Mobile (375px)</div>
+        <div class="preview-body" id="mobile-preview"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Theme
+    function toggleTheme() {
+      const html = document.documentElement;
+      html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+      localStorage.setItem('amin-theme', html.getAttribute('data-theme'));
+    }
+    function initTheme() {
+      const saved = localStorage.getItem('amin-theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
+    }
+    initTheme();
+
+    // Lang toggle placeholder
+    function toggleLang() {
+      const html = document.documentElement;
+      const current = html.getAttribute('lang');
+      const next = current === 'ar' ? 'en' : 'ar';
+      html.setAttribute('lang', next);
+      html.setAttribute('dir', next === 'ar' ? 'rtl' : 'ltr');
+    }
+
+    // Clock
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('clock').textContent = now.toLocaleTimeString('ar', { hour: '2-digit', minute: '2-digit' });
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Preview content builder
+    function buildPreview(container) {
+      container.innerHTML = '';
+
+      // KPIs
+      const kpiSection = document.createElement('div');
+      kpiSection.className = 'amin-grid amin-grid-3';
+      kpiSection.innerHTML = `
+        <div class="amin-kpi"><div class="amin-kpi-label">الطلاب</div><div class="amin-kpi-value">1,240</div><div class="amin-kpi-trend">↑ 4% هذا الشهر</div></div>
+        <div class="amin-kpi"><div class="amin-kpi-label">الحضور</div><div class="amin-kpi-value">94%</div><div class="amin-kpi-trend">↑ 1%</div></div>
+        <div class="amin-kpi"><div class="amin-kpi-label">المستحقات</div><div class="amin-kpi-value">12,500</div><div class="amin-kpi-trend down">↑ 2% متأخر</div></div>
+      `;
+      container.appendChild(kpiSection);
+
+      // Clock
+      const clock = document.createElement('div');
+      clock.className = 'amin-clock-card';
+      clock.innerHTML = `
+        <div>
+          <div class="amin-clock-time">10:24</div>
+          <div class="amin-clock-ampm">صباحاً</div>
+        </div>
+        <div class="amin-clock-date">٣٠ يونيو ٢٠٢٦ م</div>
+        <select class="amin-clock-select"><option>ميلادي</option><option>هجري</option><option>شمسي</option></select>
+      `;
+      container.appendChild(clock);
+
+      // Buttons + Badges
+      const row = document.createElement('div');
+      row.className = 'preview-row';
+      row.innerHTML = `
+        <button class="amin-btn amin-btn-primary">زر أساسي</button>
+        <button class="amin-btn amin-btn-secondary">ذهبي</button>
+        <button class="amin-btn amin-btn-accent">كحلي</button>
+        <button class="amin-btn amin-btn-ghost">شفاف</button>
+        <span class="amin-badge amin-badge-success">نشط</span>
+        <span class="amin-badge amin-badge-warning">انتظار</span>
+        <span class="amin-badge amin-badge-danger">متأخر</span>
+      `;
+      container.appendChild(row);
+
+      // Task list
+      const taskTitle = document.createElement('h3');
+      taskTitle.className = 'preview-section-title';
+      taskTitle.textContent = 'أهم المهام';
+      container.appendChild(taskTitle);
+      const taskList = document.createElement('div');
+      taskList.id = 'tasks-' + Math.random().toString(36).slice(2);
+      container.appendChild(taskList);
+      AminRender.renderTaskList(taskList, [
+        { id: 1, title: 'إثبات حضور اليوم', due_date: 'اليوم 08:00', priority: 'urgent', done: false },
+        { id: 2, title: 'تصحيح واجب الرياضيات', due_date: 'غداً', priority: 'normal', done: false },
+        { id: 3, title: 'مراجعة طلب تسجيل', due_date: 'بعد غد', priority: 'low', done: true }
+      ]);
+
+      // Timeline
+      const timelineTitle = document.createElement('h3');
+      timelineTitle.className = 'preview-section-title';
+      timelineTitle.textContent = 'الإنجازات';
+      container.appendChild(timelineTitle);
+      const timeline = document.createElement('div');
+      timeline.id = 'timeline-' + Math.random().toString(36).slice(2);
+      container.appendChild(timeline);
+      AminRender.renderTimeline(timeline, [
+        { id: 1, label: 'اختبار نصف الفصل', date: '١٥ رمضان', status: 'done', progress: 100 },
+        { id: 2, label: 'الاختبار النهائي', date: '٥ شوال', status: 'upcoming', progress: 45 },
+        { id: 3, label: 'حفل التخرج', date: '٢٥ شوال', status: 'upcoming', progress: 0 }
+      ]);
+
+      // Table
+      const tableTitle = document.createElement('h3');
+      tableTitle.className = 'preview-section-title';
+      tableTitle.textContent = 'جدول البيانات';
+      container.appendChild(tableTitle);
+      const tableContainer = document.createElement('div');
+      tableContainer.id = 'table-' + Math.random().toString(36).slice(2);
+      container.appendChild(tableContainer);
+      AminRender.renderResponsiveTable(tableContainer, [
+        { name: 'علي أحمد', grade: 'الثالث ثانوي', section: 'أ', remaining: 1200, status: 'نشط' },
+        { name: 'سارة محمد', grade: 'الثاني متوسط', section: 'ب', remaining: 0, status: 'نشط' },
+        { name: 'حسن علي', grade: 'الأول ثانوي', section: 'ج', remaining: 3400, status: 'متأخر' }
+      ], [
+        { key: 'name', title: 'الاسم' },
+        { key: 'grade', title: 'الصف' },
+        { key: 'section', title: 'الشعبة' },
+        { key: 'remaining', title: 'المتبقي', format: 'currency' },
+        { key: 'status', title: 'الحالة' }
+      ], {
+        primaryFields: ['name', 'status'],
+        mobileExpandable: ['grade', 'section', 'remaining'],
+        rowActions: (row) => {
+          const btn = document.createElement('button');
+          btn.className = 'amin-btn amin-btn-sm amin-btn-primary';
+          btn.textContent = 'عرض';
+          return btn;
+        }
+      });
+
+      // Empty state with star watermark
+      const emptyTitle = document.createElement('h3');
+      emptyTitle.className = 'preview-section-title';
+      emptyTitle.textContent = 'حالة فارغة';
+      container.appendChild(emptyTitle);
+      const empty = AminStar.renderEmpty(container, { size: 160 });
+      const emptyText = document.createElement('div');
+      emptyText.textContent = 'لا توجد بيانات لعرضها';
+      emptyText.style.position = 'relative';
+      emptyText.style.zIndex = '1';
+      emptyText.style.color = 'var(--text-secondary)';
+      empty.appendChild(emptyText);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      buildPreview(document.getElementById('desktop-preview'));
+      buildPreview(document.getElementById('tablet-preview'));
+      buildPreview(document.getElementById('mobile-preview'));
+    });
+  </script>
+</body>
+</html>
