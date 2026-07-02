@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0B6E4F">
+  <title>تسجيل معلم — مدارس أمين الرضا</title>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="css/design-tokens.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .amin-register-body { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: var(--space-4); }
+    .amin-register-card { background: var(--surface); border-radius: var(--radius-xl); box-shadow: var(--shadow-lift); padding: var(--space-8); width: 100%; max-width: 480px; border: 1px solid var(--border-subtle); }
+    .amin-register-brand { text-align: center; margin-bottom: var(--space-6); }
+    .amin-register-logo { width: 64px; height: 64px; margin: 0 auto var(--space-4); color: var(--primary); }
+    .amin-register-title { font-size: var(--text-2xl); font-weight: 800; color: var(--text-primary); margin-bottom: var(--space-2); }
+    .amin-register-subtitle { color: var(--text-secondary); font-size: var(--text-sm); }
+    .amin-register-form { display: flex; flex-direction: column; gap: var(--space-4); }
+    .amin-register-success { display: none; background: var(--primary-50); color: var(--primary-700); padding: var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--primary-200); text-align: center; }
+    .amin-register-success.show { display: block; }
+    .amin-register-footer { margin-top: var(--space-6); text-align: center; font-size: var(--text-sm); color: var(--text-secondary); }
+    .amin-register-footer a { color: var(--primary); text-decoration: none; }
+  </style>
+</head>
+<body class="amin-register-body">
+
+<main class="amin-register-card" aria-labelledby="registerTitle">
+  <header class="amin-register-brand">
+    <div class="amin-register-logo" id="registerLogo"></div>
+    <h1 class="amin-register-title" id="registerTitle">تسجيل معلم</h1>
+    <p class="amin-register-subtitle">أنشئ حساب معلم للوصول إلى بوابة المعلم</p>
+  </header>
+
+  <div class="amin-register-success" id="successBox">
+    <div style="font-weight:700;margin-bottom:var(--space-2);">تم إنشاء الحساب بنجاح</div>
+    <div>بعد موافقة الإدارة يمكنك <a href="index.html">تسجيل الدخول</a>.</div>
+  </div>
+
+  <form class="amin-register-form" id="registerForm" novalidate>
+    <div class="amin-field">
+      <label class="amin-label" for="teacherName">اسم المعلم</label>
+      <input id="teacherName" class="amin-input" type="text" required placeholder="الاسم الثلاثي">
+    </div>
+    <div class="amin-field">
+      <label class="amin-label" for="teacherEmail">البريد الإلكتروني</label>
+      <input id="teacherEmail" class="amin-input" type="email" required placeholder="example@email.com">
+    </div>
+    <div class="amin-field">
+      <label class="amin-label" for="teacherPhone">رقم الهاتف</label>
+      <input id="teacherPhone" class="amin-input" type="tel" placeholder="07xx xxx xxxx">
+    </div>
+    <div class="amin-field">
+      <label class="amin-label" for="teacherSubject">التخصص / المادة</label>
+      <input id="teacherSubject" class="amin-input" type="text" placeholder="مثال: الرياضيات">
+    </div>
+    <div class="amin-field">
+      <label class="amin-label" for="password">كلمة المرور</label>
+      <input id="password" class="amin-input" type="password" required minlength="6" placeholder="6 أحرف على الأقل">
+    </div>
+    <div class="amin-field">
+      <label class="amin-label" for="confirmPassword">تأكيد كلمة المرور</label>
+      <input id="confirmPassword" class="amin-input" type="password" required placeholder="أعد كتابة كلمة المرور">
+    </div>
+
+    <div class="amin-field-error" id="formError" role="alert" style="color:var(--danger);font-size:var(--text-sm);text-align:center;"></div>
+
+    <button id="registerBtn" class="amin-btn amin-btn-primary" type="submit" style="width:100%;">إنشاء حساب معلم</button>
+  </form>
+
+  <footer class="amin-register-footer">
+    <a href="index.html">← العودة إلى تسجيل الدخول</a>
+  </footer>
+</main>
+
+<script src="libs/supabase.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/signature-star.js"></script>
+<script src="js/renderHelpers.js"></script>
+<script src="js/core.js"></script>
+<script src="js/teacher-registration.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const logo = document.getElementById('registerLogo');
+    if (logo && window.AminStar) logo.appendChild(AminStar.logo({ size: 64, color: 'var(--primary)' }));
+    if (window.TeacherRegistrationApp) TeacherRegistrationApp.init();
+  });
+</script>
+</body>
+</html>
