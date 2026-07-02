@@ -101,7 +101,7 @@
     if (wm && window.AminStar) wm.appendChild(AminStar.watermark({ size: 260, opacity: 0.03 }));
 
     // Init login
-    if (window.AminPortal) AminPortal.bootLogin();
+    if (window.AminCore && AminCore.bootLogin) AminCore.bootLogin();
   });
 </script>
 </body>
