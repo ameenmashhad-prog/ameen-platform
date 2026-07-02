@@ -33,6 +33,12 @@ INSERT INTO calendar_events (id, title, description, event_type, event_date, is_
 ('cccccccc-cccc-cccc-cccc-cccccccccccc', 'اختبار الرياضيات النهائي', 'الاختبار النهائي لمادة الرياضيات', 'exam', '2025-12-15', true)
 ON CONFLICT (id) DO NOTHING;
 
+-- أسئلة تجريبية للاختبار
+INSERT INTO exam_questions (id, exam_id, question_text, question_type, options, correct_answer, marks) VALUES
+('dddddddd-dddd-dddd-dddd-dddddddddddd', 'cccccccc-cccc-cccc-cccc-cccccccccccc', 'ما هو 2 + 2؟', 'multiple_choice', '["3","4","5"]', '4', 1),
+('eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee', 'cccccccc-cccc-cccc-cccc-cccccccccccc', 'الرياضيات تتعامل مع الأرقام فقط.', 'true_false', '["صح","خطأ"]', 'خطأ', 1)
+ON CONFLICT (id) DO NOTHING;
+
 -- قواعد التنبيهات الذكية
 INSERT INTO smart_alert_rules (id, key, name, description, severity, entity_type, condition_json, notify_roles) VALUES
 ('11111111-1111-1111-1111-111111111111', 'attendance_drop', 'تراجع الحضور', 'نسبة حضور الطالب أقل من 80% لمدة أسبوع', 'medium', 'attendance', '{"threshold":80,"window_days":7}', '{"admin","discipline"}'),

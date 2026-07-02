@@ -156,6 +156,31 @@ CREATE TABLE IF NOT EXISTS online_exams (
   created_at TIMESTAMPTZ DEFAULT now()
 );
 
+-- أسئلة الاختبار
+CREATE TABLE IF NOT EXISTS exam_questions (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  exam_id UUID NOT NULL REFERENCES online_exams(id) ON DELETE CASCADE,
+  question_text TEXT NOT NULL,
+  question_type TEXT DEFAULT 'multiple_choice' CHECK (question_type IN ('multiple_choice','true_false','text')),
+  options JSONB,
+  correct_answer TEXT,
+  marks NUMERIC(5,2) DEFAULT 1,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- إجابات الطلاب
+CREATE TABLE IF NOT EXISTS exam_submissions (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  exam_id UUID NOT NULL REFERENCES online_exams(id) ON DELETE CASCADE,
+  student_id UUID NOT NULL REFERENCES students(id) ON DELETE CASCADE,
+  answers JSONB,
+  score NUMERIC(5,2),
+  status TEXT DEFAULT 'submitted' CHECK (status IN ('submitted','graded')),
+  submitted_at TIMESTAMPTZ,
+  graded_at TIMESTAMPTZ,
+  UNIQUE(exam_id, student_id)
+);
+
 -- الإشعارات المدرسية
 CREATE TABLE IF NOT EXISTS school_notifications (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -188,7 +213,18 @@ ALTER TABLE student_fees ENABLE ROW LEVEL SECURITY;
 ALTER TABLE student_installments ENABLE ROW LEVEL SECURITY;
 ALTER TABLE fee_payments ENABLE ROW LEVEL SECURITY;
 ALTER TABLE online_exams ENABLE ROW LEVEL SECURITY;
+ALTER TABLE exam_questions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE exam_submissions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE school_notifications ENABLE ROW LEVEL SECURITY;
+
+-- سياسات الاختبارات
+CREATE POLICY exams_read_all ON online_exams FOR SELECT USING (true);
+CREATE POLICY exams_write_teachers ON online_exams FOR ALL USING (auth.uid() IN (SELECT id FROM users WHERE role IN ('admin','super_admin','teacher','academic')));
+CREATE POLICY questions_read_all ON exam_questions FOR SELECT USING (true);
+CREATE POLICY questions_write_teachers ON exam_questions FOR ALL USING (auth.uid() IN (SELECT id FROM users WHERE role IN ('admin','super_admin','teacher','academic')));
+CREATE POLICY submissions_read_students ON exam_submissions FOR SELECT USING (student_id IN (SELECT id FROM students WHERE user_id = auth.uid()) OR auth.uid() IN (SELECT id FROM users WHERE role IN ('admin','super_admin','teacher','academic')));
+CREATE POLICY submissions_write_students ON exam_submissions FOR INSERT WITH CHECK (student_id IN (SELECT id FROM students WHERE user_id = auth.uid()));
+CREATE POLICY submissions_update_teachers ON exam_submissions FOR UPDATE USING (auth.uid() IN (SELECT id FROM users WHERE role IN ('admin','super_admin','teacher','academic')));
 
 -- تقويم الفعاليات والاختبارات والعطل
 CREATE TABLE IF NOT EXISTS calendar_events (
